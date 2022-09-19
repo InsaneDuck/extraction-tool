@@ -50,10 +50,10 @@ public class Extraction
     private JRadioButton CSVRadioButton;
     private JPanel previewPanel;
     private JTabbedPane csvTabs;
-    private JPanel parentPanel;
 
-    public Extraction()
+    public Extraction(MainGUI mainGUI)
     {
+        this.mainGUI = mainGUI;
         selectXMLFolderButton.addActionListener(actionEvent -> selectXMLFiles());
         selectTemplateToExtractButton.addActionListener(actionEvent -> selectTemplateToExtract());
         extractDataButton.addActionListener(actionEvent -> extractData());
@@ -105,6 +105,11 @@ public class Extraction
         return extractDataPanel;
     }
 
+    void pack()
+    {
+        SwingUtilities.getWindowAncestor(extractDataPanel).pack();
+    }
+
     private void selectXMLFiles()
     {
         xmlFileNameAndFile.clear();
@@ -123,6 +128,7 @@ public class Extraction
             xmlFileNameAndFile.forEach(item -> fileNames.add(item.getFileName()));
             listOfFiles.setListData(fileNames.toArray(new String[0]));
             clearButton.setEnabled(true);
+            pack();
         }
         else
         {
@@ -193,6 +199,8 @@ public class Extraction
             previewPanel.setMinimumSize(new Dimension(700, -1));
             previewPanel.setVisible(true);
             //todo pack
+            pack();
+
         }
     }
 

@@ -34,8 +34,9 @@ public class GenerateTemplate
     private JScrollPane treePane;
     private JButton exportTemplateButton;
 
-    public GenerateTemplate()
+    public GenerateTemplate(MainGUI mainGUI)
     {
+        this.mainGUI = mainGUI;
         generateTemplate.addActionListener(actionEvent -> generateTree());
         exportTemplateButton.addActionListener(actionEvent -> exportTemplate());
     }

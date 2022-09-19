@@ -10,7 +10,7 @@ public class Test extends JFrame
 {
     public Test()
     {
-        add(new Extraction().getExtractDataPanel());
+
         pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
