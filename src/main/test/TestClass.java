@@ -13,22 +13,14 @@ class TestClass
     void setupTempFolder()
     {
         Logic.setupTempFolder();
-        File tempDirectory = new File(Constants.TEMPORARY_FOLDER);
-        File templateDirectory = new File(Constants.TEMPORARY_FOLDER + "/template");
-        File extractionDirectory = new File(Constants.TEMPORARY_FOLDER + "/extraction");
-        File extractionTemplateDirectory = new File(Constants.TEMPORARY_FOLDER + "/extraction/template");
-        File extractionFilesDirectory = new File(Constants.TEMPORARY_FOLDER + "/extraction/files");
-        File extractionMergedDirectory = new File(Constants.TEMPORARY_FOLDER + "/extraction/merged/");
-
-        if (!(tempDirectory.exists() &&
-                templateDirectory.exists() &&
-                extractionDirectory.exists() &&
-                extractionTemplateDirectory.exists() &&
-                extractionFilesDirectory.exists() &&
-                extractionMergedDirectory.exists()))
+        if (!(new File(Constants.TEMPORARY_FOLDER).exists() &&
+                new File(Constants.TEMPLATE_GENERATION).exists() &&
+                new File(Constants.EXTRACTION).exists() &&
+                new File(Constants.EXTRACTION_TEMPLATE).exists() &&
+                new File(Constants.EXTRACTION_FILES).exists() &&
+                new File(Constants.EXTRACTION_MERGED).exists()))
         {
             fail("failed");
         }
     }
-
 }
