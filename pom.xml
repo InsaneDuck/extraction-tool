@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dev.insaneduck</groupId>
+    <artifactId>extraction_tool</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <jackson.version>2.13.3</jackson.version>
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--for theme-->
+        <!--https://search.maven.org/artifact/com.formdev/flatlaf/2.4/jar license: apache v2.0-->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <!--https://search.maven.org/artifact/com.formdev/flatlaf-intellij-themes/2.4/jar license: apache v2.0-->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <!--for @NotNull annotation-->
+        <!--https://search.maven.org/artifact/org.jetbrains/annotations/23.0.0/jar license: apache v2.0-->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>23.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--for converting xml to json and to bind json to POJO-->
+        <!--https://search.maven.org/artifact/com.fasterxml.jackson.core/jackson-core/2.13.3/bundle license: apache v2.0-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.13.4</version>
+        </dependency>
+        <!-- https://search.maven.org/artifact/com.fasterxml.jackson.core/jackson-databind/2.13.3/bundle license: apache v2.0-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.4</version>
+        </dependency>
+        <!-- https://search.maven.org/artifact/com.fasterxml.jackson.core/jackson-annotations/2.13.3/bundle license: apache v2.0 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.13.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.12.2</version>
+        </dependency>
+
+
+        <!--File utilities-->
+        <!-- https://search.maven.org/artifact/commons-io/commons-io/2.11.0/jar license: apache v2.0-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <!--for generating classes during runtime !!important-->
+        <!-- https://search.maven.org/artifact/com.github.erosb/everit-json-schema/1.14.1/bundle license: apache v2.0 -->
+        <dependency>
+            <groupId>com.github.erosb</groupId>
+            <artifactId>everit-json-schema</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
+        <!--for generating POJO from json file-->
+        <!-- https://mvnrepository.com/artifact/org.jsonschema2pojo/jsonschema2pojo-core -->
+        <!--https://github.com/joelittlejohn/jsonschema2pojo/blob/master/LICENSE license: apache v2.0-->
+        <dependency>
+            <groupId>org.jsonschema2pojo</groupId>
+            <artifactId>jsonschema2pojo-core</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <!--for generating csv files-->
+        <!-- https://search.maven.org/artifact/org.apache.commons/commons-csv/1.9.0/jar license: apache v2.0 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+
+        <!--for converting csv files to xls-->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <!--https://poi.apache.org/legal.html licence: apache v2.0-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+
+        <!--for intellij GUI builder-->
+        <!-- https://search.maven.org/artifact/com.intellij/forms_rt/7.0.3/jar license: apache v2.0 -->
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>forms_rt</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
+        <!-- https://search.maven.org/artifact/com.opencsv/opencsv/5.2/jar license: apache v2.0 -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
+        <!--for testing-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--https://search.maven.org/artifact/org.apache.maven.plugins/maven-assembly-plugin/3.4.2/maven-plugin license: v2.0-->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.4.2</version>
+            <type>maven-plugin</type>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        dev.insaneduck.extraction_tool.main.Main
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
