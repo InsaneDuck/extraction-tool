@@ -43,7 +43,8 @@ public class Settings
                 {
                     throw new RuntimeException(e);
                 }
-                MainGUI.updateUI();
+
+                SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(settingsPanel));
             }
         });
         darkRadioButton.addActionListener(actionEvent -> {
@@ -58,7 +59,8 @@ public class Settings
                 {
                     throw new RuntimeException(e);
                 }
-                MainGUI.updateUI();
+
+                SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(settingsPanel));
             }
         });
         showLogsButton.addActionListener(actionEvent -> {

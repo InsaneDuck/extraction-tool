@@ -215,11 +215,7 @@ public class MainGUI extends JFrame
         {
             SwingUtilities.updateComponentTreeUI(MainGUI.class.newInstance());
         }
-        catch (InstantiationException e)
-        {
-            throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e)
+        catch (InstantiationException | IllegalAccessException e)
         {
             throw new RuntimeException(e);
         }
