@@ -5,6 +5,7 @@ import dev.insaneduck.extraction_tool.controller.CommandLine;
 import dev.insaneduck.extraction_tool.controller.Logic;
 import dev.insaneduck.extraction_tool.view.MainGUI;
 
+import javax.swing.*;
 import java.util.Objects;
 
 //init class
@@ -21,6 +22,7 @@ public class Main
             else if (Objects.equals(args[0], "--gui"))
             {
                 FlatOneDarkIJTheme.setup();
+                //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
                 Logic.setupTempFolder();
                 new MainGUI();
             }

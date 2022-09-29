@@ -52,16 +52,4 @@
       </component>
     </children>
   </grid>
-  <buttonGroups>
-    <group name="themeButtonGroup">
-      <member id="1f75e"/>
-      <member id="1f75e"/>
-      <member id="5a3c7"/>
-    </group>
-    <group name="exportTypeGroup">
-      <member id="25ed8"/>
-      <member id="25ed8"/>
-      <member id="deb4b"/>
-    </group>
-  </buttonGroups>
 </form>
