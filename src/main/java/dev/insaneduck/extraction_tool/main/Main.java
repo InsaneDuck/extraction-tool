@@ -63,7 +63,7 @@ public class Main
                                         
                 for using the application with GUI
                 java jar XML_Tool.jar --gui
-                (for gui do not add any more argument other than --gui)        
+                (for gui do not add any more argument other than --gui)
                 """;
         System.out.println(instructions);
     }
