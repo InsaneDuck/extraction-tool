@@ -90,6 +90,37 @@ public class Extractor
 
     public void traverseNode(JsonNode jsonNode, DefaultMutableTreeNode treeNode)
     {
+        switch (jsonNode.getNodeType())
+        {
+            case OBJECT ->
+            {
+                NodeValue nodeValue = new NodeValue(new DefaultMutableTreeNode(), new LinkedHashMap<>());
+                traverseNodeFields(jsonNode, nodeValue, treeNode);
+                if (nodeValue.notNull())
+                {
+                    objectCSV.add(nodeValue);
+                }
+            }
+            case ARRAY ->
+            {
+                ArrayNode arrayNode = (ArrayNode) jsonNode;
+                //for each item/object in that array
+                for (JsonNode node : arrayNode)
+                {
+                    DefaultMutableTreeNode defaultMutableTreeNode = new DefaultMutableTreeNode(treeNode.toString());
+                    DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) treeNode.getParent();
+                    parentNode.add(defaultMutableTreeNode);
+                    NodeValue nodeValue = new NodeValue(new DefaultMutableTreeNode(), new LinkedHashMap<>());
+                    traverseNodeFields(node, nodeValue, defaultMutableTreeNode);
+                    if (nodeValue.notNull())
+                    {
+                        arrayCSV.add(nodeValue);
+                    }
+                }
+            }
+        }
+/*
+        old method
         if (jsonNode.isObject())
         {
             NodeValue nodeValue = new NodeValue(new DefaultMutableTreeNode(), new LinkedHashMap<>());
@@ -116,6 +147,7 @@ public class Extractor
                 }
             }
         }
+*/
     }
 
     public void traverseNodeFields(JsonNode node, NodeValue nodeValue, DefaultMutableTreeNode treeNode)
@@ -150,6 +182,37 @@ public class Extractor
             }
             treeNode.add(currentNode);
             //check if current field is object
+            switch (node.get(currentField).getNodeType())
+            {
+                //if the field is array or object traverse through it again
+                case OBJECT, ARRAY ->
+                {
+                    traverseNode(node.get(currentField), currentNode);
+                }
+                case NUMBER, BOOLEAN, STRING ->
+                {
+                    //if no template is defined
+                    if (parameters.isEmpty())
+                    {
+                        nodeValue.setNodeName(treeNode);
+                        nodeValue.getNodeKeysAndValues().put(currentField, String.valueOf(node.path(currentField)));
+                    }
+                    else
+                    {
+                        for (Parameter parameter : parameters)
+                        {
+                            String className = parameter.getParameterClass().substring(parameter.getParameterClass().lastIndexOf(".") + 1);
+                            if (parameter.isSelected() && parameter.getParameterName().equalsIgnoreCase(currentField) && className.equalsIgnoreCase(treeNode.toString()))
+                            {
+                                nodeValue.setNodeName(treeNode);
+                                nodeValue.getNodeKeysAndValues().put(currentField, String.valueOf(node.path(currentField)));
+                            }
+                        }
+                    }
+                }
+            }
+/*
+            old method
             if (node.get(currentField).isObject())
             {
                 traverseNode(node.get(currentField), currentNode);
@@ -161,6 +224,7 @@ public class Extractor
             }
             else
             {
+                //if no template is defined
                 if (parameters.isEmpty())
                 {
                     nodeValue.setNodeName(treeNode);
@@ -179,6 +243,7 @@ public class Extractor
                     }
                 }
             }
+*/
         }
     }
 

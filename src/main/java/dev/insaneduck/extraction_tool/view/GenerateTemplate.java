@@ -154,6 +154,9 @@ public class GenerateTemplate
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {return generateTemplatePanel;}
+    public JComponent $$$getRootComponent$$$()
+    {
+        return generateTemplatePanel;
+    }
 
 }

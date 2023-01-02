@@ -80,6 +80,9 @@ public class MainGUI extends JFrame
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {return main;}
+    public JComponent $$$getRootComponent$$$()
+    {
+        return main;
+    }
 
 }

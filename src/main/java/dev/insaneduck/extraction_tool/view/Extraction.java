@@ -451,6 +451,9 @@ public class Extraction
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {return extractDataPanel;}
+    public JComponent $$$getRootComponent$$$()
+    {
+        return extractDataPanel;
+    }
 
 }

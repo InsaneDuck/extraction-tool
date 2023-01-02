@@ -149,6 +149,9 @@ public class Settings
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {return settingsPanel;}
+    public JComponent $$$getRootComponent$$$()
+    {
+        return settingsPanel;
+    }
 
 }
