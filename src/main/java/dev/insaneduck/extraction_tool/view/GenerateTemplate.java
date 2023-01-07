@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GenerateTemplate {
+public class GenerateTemplate
+{
     MainGUI mainGUI;
     JCheckBoxTree tree = new JCheckBoxTree();
     UiLogic uiLogic = new UiLogic();
@@ -33,25 +34,32 @@ public class GenerateTemplate {
     private JScrollPane treePane;
     private JButton exportTemplateButton;
 
-    public GenerateTemplate(MainGUI mainGUI) {
+    public GenerateTemplate(MainGUI mainGUI)
+    {
         this.mainGUI = mainGUI;
         generateTemplate.addActionListener(actionEvent -> generateTree());
         exportTemplateButton.addActionListener(actionEvent -> exportTemplate());
     }
 
-    public void generateTree() {
-        try {
+    public void generateTree()
+    {
+        try
+        {
             //cleaning temp directory of previous files
             FileUtils.cleanDirectory(new File(Constants.TEMPLATE_GENERATION));
             File inputFile = uiLogic.filePicker("Select for generating template", "XML File", "xml");
-            if (inputFile == null) {
+            if (inputFile == null)
+            {
                 mainGUI.getStatus().setText("no file selected");
-            } else {
+            }
+            else
+            {
                 TreeBuilder treeBuilder = new TreeBuilder(inputFile);
                 DefaultMutableTreeNode defaultMutableTreeNode = treeBuilder.getTree();
                 DefaultTreeModel model = new DefaultTreeModel(defaultMutableTreeNode);
                 tree.setModel(model);
-                for (int i = 0; i < tree.getRowCount(); i++) {
+                for (int i = 0; i < tree.getRowCount(); i++)
+                {
                     tree.expandRow(i);
                 }
                 treePane.setViewportView(tree);
@@ -59,32 +67,40 @@ public class GenerateTemplate {
                 parameterOutputList = treeBuilder.getParameterAltList();
             }
 
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new RuntimeException(e);
         }
     }
 
-    public void exportTemplate() {
+    public void exportTemplate()
+    {
         File templateSaveLocation = uiLogic.filePicker("Select directory to save template file", "Template", "template");
         //getting list of items checked from JCheckBoxTree
         TreePath[] treePaths = tree.getCheckedPaths();
-        for (TreePath treePath : treePaths) {
+        for (TreePath treePath : treePaths)
+        {
             Parameter parameterAlt = (Parameter) ((DefaultMutableTreeNode) treePath.getLastPathComponent()).getUserObject();
 
-            for (Parameter parameter : parameterOutputList) {
+            for (Parameter parameter : parameterOutputList)
+            {
                 String parameterName = parameterAlt.getParameterName();
                 String parameterType = parameterAlt.getParameterType();
                 String parameterClass = parameterAlt.getParameterClass();
                 if (Objects.equals(parameter.getParameterName(), parameterName) &&
                         Objects.equals(parameter.getParameterType(), parameterType) &&
-                        Objects.equals(parameter.getParameterClass(), parameterClass)) {
+                        Objects.equals(parameter.getParameterClass(), parameterClass))
+                {
                     parameter.setSelected(true);
                 }
             }
         }
-        if (templateSaveLocation != null) {
+        if (templateSaveLocation != null)
+        {
             File templateJSON = new File(Constants.TEMPLATE_GENERATION + "/template.json");
-            if (templateJSON.exists()) {
+            if (templateJSON.exists())
+            {
                 templateJSON.delete();
             }
             Logic.writeTextToFile(templateJSON, Logic.beautify(Parameter.getJson(parameterOutputList)));
@@ -93,12 +109,15 @@ public class GenerateTemplate {
             templateFiles.add(Constants.TEMPLATE_GENERATION + "/schema.json");
             Zip.zipFiles(templateFiles, templateSaveLocation.toString());
             mainGUI.getStatus().setText("template saved to " + templateSaveLocation);
-        } else {
+        }
+        else
+        {
             mainGUI.getStatus().setText("No template output location selected");
         }
     }
 
-    public JPanel getGenerateTemplatePanel() {
+    public JPanel getGenerateTemplatePanel()
+    {
         return generateTemplatePanel;
     }
 
@@ -116,7 +135,8 @@ public class GenerateTemplate {
      *
      * @noinspection ALL
      */
-    private void $$$setupUI$$$() {
+    private void $$$setupUI$$$()
+    {
         generateTemplatePanel = new JPanel();
         generateTemplatePanel.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
         generateTemplate = new JButton();
@@ -134,7 +154,8 @@ public class GenerateTemplate {
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {
+    public JComponent $$$getRootComponent$$$()
+    {
         return generateTemplatePanel;
     }
 

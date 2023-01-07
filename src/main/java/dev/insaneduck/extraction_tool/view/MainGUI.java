@@ -7,25 +7,30 @@ import com.intellij.uiDesigner.core.Spacer;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainGUI extends JFrame {
+public class MainGUI extends JFrame
+{
     private JPanel main;
     private JTabbedPane tabsPanel;
     private JLabel status;
     private JProgressBar progressBar;
 
-    public MainGUI() {
+    public MainGUI()
+    {
         initialiseUI();
     }
 
-    public JLabel getStatus() {
+    public JLabel getStatus()
+    {
         return status;
     }
 
-    public JProgressBar getProgressBar() {
+    public JProgressBar getProgressBar()
+    {
         return progressBar;
     }
 
-    void initialiseUI() {
+    void initialiseUI()
+    {
         setTitle("Data Extraction Tool");
         setLayout(new GridLayout());
         setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/logo.jpg")));
@@ -55,7 +60,8 @@ public class MainGUI extends JFrame {
      *
      * @noinspection ALL
      */
-    private void $$$setupUI$$$() {
+    private void $$$setupUI$$$()
+    {
         main = new JPanel();
         main.setLayout(new GridLayoutManager(3, 4, new Insets(0, 0, 0, 0), -1, -1));
         tabsPanel = new JTabbedPane();
@@ -74,7 +80,8 @@ public class MainGUI extends JFrame {
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {
+    public JComponent $$$getRootComponent$$$()
+    {
         return main;
     }
 
