@@ -56,7 +56,7 @@ public class Extractor
         return arrayCSV;
     }
 
-    void init(File xmlFile)
+    private void init(File xmlFile)
     {
         String json = Logic.xmlToJson(Logic.readTextFromFile(xmlFile));
         getDataFromJson(json);
@@ -74,7 +74,7 @@ public class Extractor
         });
     }
 
-    public void getDataFromJson(String json)
+    private void getDataFromJson(String json)
     {
         try
         {
@@ -88,7 +88,7 @@ public class Extractor
         }
     }
 
-    public void traverseNode(JsonNode jsonNode, DefaultMutableTreeNode treeNode)
+    private void traverseNode(JsonNode jsonNode, DefaultMutableTreeNode treeNode)
     {
         if (jsonNode.isObject())
         {
@@ -118,7 +118,7 @@ public class Extractor
         }
     }
 
-    public void traverseNodeFields(JsonNode node, NodeValue nodeValue, DefaultMutableTreeNode treeNode)
+    private void traverseNodeFields(JsonNode node, NodeValue nodeValue, DefaultMutableTreeNode treeNode)
     {
         //getting all fields in a node
         Iterator<String> fields = node.fieldNames();
@@ -183,13 +183,13 @@ public class Extractor
     }
 
     //this will check for parent nodes other field values and add them to current fields
-    void usedDepth()
+    private void usedDepth()
     {
         objectCSV.forEach(this::traverseParentNodes);
         arrayCSV.forEach(this::traverseParentNodes);
     }
 
-    void traverseParentNodes(NodeValue nodeValue)
+    private void traverseParentNodes(NodeValue nodeValue)
     {
         int tempDepth = depth;
         TreeNode treeNode = nodeValue.getNodeName();
@@ -209,7 +209,7 @@ public class Extractor
 
     }
 
-    List<JsonField> appendParentParameters(TreeNode node)
+    private List<JsonField> appendParentParameters(TreeNode node)
     {
         TreeNode n = new DefaultMutableTreeNode();
         try
@@ -237,7 +237,7 @@ public class Extractor
     }
 
 
-    List<JsonField> getFieldsFromChildNodes(TreeNode node)
+    private List<JsonField> getFieldsFromChildNodes(TreeNode node)
     {
         List<JsonField> jsonFieldList = new ArrayList<>();
         try
@@ -262,7 +262,7 @@ public class Extractor
         return jsonFieldList;
     }
 
-    boolean nodeHasFields(TreeNode node)
+    private boolean nodeHasFields(TreeNode node)
     {
         List<JsonField> jsonFieldList = new ArrayList<>();
         try

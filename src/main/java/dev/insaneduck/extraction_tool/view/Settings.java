@@ -14,8 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-public class Settings
-{
+public class Settings {
     MainGUI mainGUI;
     private JRadioButton darkRadioButton;
     private JRadioButton lightRadioButton;
@@ -25,20 +24,15 @@ public class Settings
     private JButton showLogsButton;
     private JPanel settingsPanel;
 
-    public Settings(MainGUI mainGUI)
-    {
+    public Settings(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
         //change to light mode
         lightRadioButton.addActionListener(actionEvent -> {
-            if (lightRadioButton.isSelected())
-            {
-                try
-                {
+            if (lightRadioButton.isSelected()) {
+                try {
                     UIManager.setLookAndFeel(FlatLightLaf.class.getDeclaredConstructor().newInstance());
-                }
-                catch (InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException |
-                       InvocationTargetException | NoSuchMethodException e)
-                {
+                } catch (InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException |
+                         InvocationTargetException | NoSuchMethodException e) {
                     throw new RuntimeException(e);
                 }
                 SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(settingsPanel));
@@ -46,15 +40,11 @@ public class Settings
         });
         //change to dark mode
         darkRadioButton.addActionListener(actionEvent -> {
-            if (darkRadioButton.isSelected())
-            {
-                try
-                {
+            if (darkRadioButton.isSelected()) {
+                try {
                     UIManager.setLookAndFeel(FlatOneDarkIJTheme.class.getDeclaredConstructor().newInstance());
-                }
-                catch (InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException |
-                       InvocationTargetException | NoSuchMethodException e)
-                {
+                } catch (InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException |
+                         InvocationTargetException | NoSuchMethodException e) {
                     throw new RuntimeException(e);
                 }
                 SwingUtilities.updateComponentTreeUI(SwingUtilities.getWindowAncestor(settingsPanel));
@@ -62,35 +52,28 @@ public class Settings
         });
         //show logs
         showLogsButton.addActionListener(actionEvent -> {
-            if (Objects.equals(showLogsButton.getText(), "Show Logs"))
-            {
+            if (Objects.equals(showLogsButton.getText(), "Show Logs")) {
                 logsScrollPane.setVisible(true);
                 showLogsButton.setText("Hide Logs");
-            }
-            else if (Objects.equals(showLogsButton.getText(), "Hide Logs"))
-            {
+            } else if (Objects.equals(showLogsButton.getText(), "Hide Logs")) {
                 logsScrollPane.setVisible(false);
                 showLogsButton.setText("Show Logs");
             }
         });
         //open GitHub guide to use the tool
         githubButton.addActionListener(actionEvent -> {
-            try
-            {
+            try {
                 String url = "https://github.com/InsaneDuck/XML_Tool/blob/master/README.md";
                 Desktop desktop = Desktop.getDesktop();
                 URI uri = new URI(url);
                 desktop.browse(uri.resolve(uri));
-            }
-            catch (URISyntaxException | IOException e)
-            {
+            } catch (URISyntaxException | IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    public JPanel getSettingsPanel()
-    {
+    public JPanel getSettingsPanel() {
         return settingsPanel;
     }
 
@@ -108,8 +91,7 @@ public class Settings
      *
      * @noinspection ALL
      */
-    private void $$$setupUI$$$()
-    {
+    private void $$$setupUI$$$() {
         settingsPanel = new JPanel();
         settingsPanel.setLayout(new GridLayoutManager(4, 6, new Insets(0, 0, 0, 0), -1, -1));
         final Spacer spacer1 = new Spacer();
@@ -149,6 +131,8 @@ public class Settings
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {return settingsPanel;}
+    public JComponent $$$getRootComponent$$$() {
+        return settingsPanel;
+    }
 
 }

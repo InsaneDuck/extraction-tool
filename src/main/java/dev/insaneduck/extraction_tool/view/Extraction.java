@@ -24,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Extraction
-{
+public class Extraction {
     List<FileNameAndFile> xmlFileNameAndFile = new ArrayList<>();
     List<Parameter> parameterListInput = new ArrayList<>();
     UiLogic uiLogic = new UiLogic();
@@ -51,21 +50,17 @@ public class Extraction
     private JPanel previewPanel;
     private JTabbedPane csvTabs;
 
-    public Extraction(MainGUI mainGUI)
-    {
+    public Extraction(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
         selectXMLFolderButton.addActionListener(actionEvent -> selectXMLFiles());
         selectTemplateToExtractButton.addActionListener(actionEvent -> selectTemplateToExtract());
         extractDataButton.addActionListener(actionEvent -> extractData());
         depthPanel.setVisible(false);
 
-        listOfFiles.addMouseListener(new MouseAdapter()
-        {
+        listOfFiles.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent mouseEvent)
-            {
-                if (mouseEvent.getClickCount() == 2)
-                {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if (mouseEvent.getClickCount() == 2) {
                     previewCSV();
                 }
             }
@@ -75,16 +70,14 @@ public class Extraction
         increaseDepth.addActionListener(actionEvent -> {
             int i = Integer.parseInt(depth.getText());
             ++i;
-            if (i == 0)
-            {
+            if (i == 0) {
                 ++i;
             }
             depth.setText(String.valueOf(i));
         });
         decreaseDepth.addActionListener(actionEvent -> {
             int i = Integer.parseInt(depth.getText());
-            if (i > 1)
-            {
+            if (i > 1) {
                 --i;
                 depth.setText(String.valueOf(i));
             }
@@ -100,25 +93,20 @@ public class Extraction
         });
     }
 
-    public JPanel getExtractDataPanel()
-    {
+    public JPanel getExtractDataPanel() {
         return extractDataPanel;
     }
 
-    void pack()
-    {
+    void pack() {
         mainGUI.pack();
     }
 
-    private void selectXMLFiles()
-    {
+    private void selectXMLFiles() {
         xmlFileNameAndFile.clear();
         //getting list of files from selected folder and filtering them by extension xml
         File[] files = uiLogic.getFilesFromFolderPicker("Choose Folder Containing XML Files", "XML Files", "xml", workingDirectory);
-        if (files != null)
-        {
-            for (File file : files)
-            {
+        if (files != null) {
+            for (File file : files) {
                 //key and value pair for associating file name with file
                 //to string is avoided here to not display full path
                 xmlFileNameAndFile.add(new FileNameAndFile(file.getName(), file));
@@ -129,33 +117,24 @@ public class Extraction
             listOfFiles.setListData(fileNames.toArray(new String[0]));
             clearButton.setEnabled(true);
             pack();
-        }
-        else
-        {
+        } else {
             mainGUI.getStatus().setText("aborted");
         }
     }
 
-    private void previewCSV()
-    {
+    private void previewCSV() {
         File file = null;
-        for (FileNameAndFile fileNameAndFile : xmlFileNameAndFile)
-        {
-            if (Objects.equals(fileNameAndFile.getFileName(), listOfFiles.getSelectedValue()))
-            {
+        for (FileNameAndFile fileNameAndFile : xmlFileNameAndFile) {
+            if (Objects.equals(fileNameAndFile.getFileName(), listOfFiles.getSelectedValue())) {
                 file = fileNameAndFile.getFile();
             }
         }
-        if (file != null)
-        {
-            if (includeParentParametersForCheckBox.isSelected())
-            {
+        if (file != null) {
+            if (includeParentParametersForCheckBox.isSelected()) {
                 Extractor extractor = new Extractor(file, parameterListInput, Integer.parseInt(depth.getText()));
                 Logic logic = new Logic();
                 new CSVHandler(extractor.getObjectCSV(), extractor.getArrayCSV(), logic.getCsvDirectoryFromFileName(file), null, false, false);
-            }
-            else
-            {
+            } else {
                 Extractor extractor = new Extractor(file, parameterListInput);
                 Logic logic = new Logic();
                 new CSVHandler(extractor.getObjectCSV(), extractor.getArrayCSV(), logic.getCsvDirectoryFromFileName(file), null, false, false);
@@ -163,35 +142,27 @@ public class Extraction
             String tempFolderPath = Constants.EXTRACTION_FILES + listOfFiles.getSelectedValue().replace(".xml", "") + "/";
             File[] csvFiles = new File(tempFolderPath).listFiles((dir, name) -> name.endsWith("." + "csv"));
             csvTabs.removeAll();
-            if (csvFiles != null)
-            {
-                for (File csvFile : csvFiles)
-                {
-                    try
-                    {
+            if (csvFiles != null) {
+                for (File csvFile : csvFiles) {
+                    try {
                         CSVReader csvReader = new CSVReader(new FileReader(csvFile));
                         List<String[]> csvData = csvReader.readAll();
                         //first column as column names
                         Object[] columns = csvData.get(0);
                         DefaultTableModel tableModel = new DefaultTableModel(columns, csvData.size() - 1);
                         int rowcount = tableModel.getRowCount();
-                        for (int x = 0; x < rowcount + 1; x++)
-                        {
+                        for (int x = 0; x < rowcount + 1; x++) {
                             int column = 0;
                             //ignoring column names
-                            if (x > 0)
-                            {
-                                for (String value : csvData.get(x))
-                                {
+                            if (x > 0) {
+                                for (String value : csvData.get(x)) {
                                     tableModel.setValueAt(value, x - 1, column);
                                     column++;
                                 }
                             }
                         }
                         csvTabs.addTab(csvFile.getName(), new PreviewTable(tableModel));
-                    }
-                    catch (IOException | CsvException e)
-                    {
+                    } catch (IOException | CsvException e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -204,31 +175,24 @@ public class Extraction
         }
     }
 
-    public void selectTemplateToExtract()
-    {
+    public void selectTemplateToExtract() {
         Logic.setupTempFolder();
         parameterListInput.clear();
         File template = uiLogic.filePicker("Select Template", "Template File", "template");
-        if (template != null)
-        {
+        if (template != null) {
             Logic.getParameterListFromTemplate(template, parameterListInput);
             mainGUI.getProgressBar().setIndeterminate(true);
             mainGUI.getStatus().setText("Checking if input xml files match template schema");
             //todo update progress, future work
-            new SwingWorker<>()
-            {
+            new SwingWorker<>() {
                 @Override
-                protected Object doInBackground()
-                {
+                protected Object doInBackground() {
                     xmlFileNameAndFile.parallelStream().forEach(fileNameAndFile -> {
                         File file = fileNameAndFile.getFile();
-                        if (Logic.validateSchema(file))
-                        {
+                        if (Logic.validateSchema(file)) {
                             //todo s out
                             System.out.println("template matches");
-                        }
-                        else
-                        {
+                        } else {
                             //todo s out
                             System.out.println(" template doesn't match");
                         }
@@ -236,54 +200,40 @@ public class Extraction
                     return null;
                 }
 
-                protected void done()
-                {
+                protected void done() {
                     mainGUI.getStatus().setText("Ready");
                     mainGUI.getProgressBar().setIndeterminate(false);
                     extractDataButton.setEnabled(true);
                 }
             }.execute();
-        }
-        else
-        {
+        } else {
             mainGUI.getStatus().setText("no template file selected");
         }
 
     }
 
-    public void extractData()
-    {
+    public void extractData() {
         //new File("/home/satya/Downloads/out");
         File outputFolder = uiLogic.folderPicker("Select folder to save XLS output");
-        try
-        {
+        try {
             FileUtils.cleanDirectory(new File(Constants.TEMPORARY_FOLDER + "/extraction/files/"));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (mergeAllOutputXLSCheckBox.isSelected())
-        {
+        if (mergeAllOutputXLSCheckBox.isSelected()) {
             mainGUI.getStatus().setText("Processing...this may take a while");
             mainGUI.getProgressBar().setIndeterminate(true);
-            new SwingWorker<>()
-            {
+            new SwingWorker<>() {
                 @Override
-                protected Object doInBackground()
-                {
+                protected Object doInBackground() {
                     List<NodeValue> mergedNodeValues = new ArrayList<>();
-                    for (FileNameAndFile fileNameAndFile : xmlFileNameAndFile)
-                    {
+                    for (FileNameAndFile fileNameAndFile : xmlFileNameAndFile) {
                         File file = fileNameAndFile.getFile();
-                        if (includeParentParametersForCheckBox.isSelected())
-                        {
+                        if (includeParentParametersForCheckBox.isSelected()) {
                             Extractor extractor = new Extractor(file, parameterListInput, Integer.parseInt(depth.getText()));
                             mergedNodeValues.addAll(extractor.getArrayCSV());
                             mergedNodeValues.addAll(extractor.getObjectCSV());
-                        }
-                        else
-                        {
+                        } else {
                             Extractor extractor = new Extractor(file, parameterListInput);
                             mergedNodeValues.addAll(extractor.getArrayCSV());
                             mergedNodeValues.addAll(extractor.getObjectCSV());
@@ -291,54 +241,39 @@ public class Extraction
                     }
                     String filesPath = Constants.TEMPORARY_FOLDER + "/extraction/merged/";
                     File csvDirectory = new File(filesPath);
-                    try
-                    {
-                        if (csvDirectory.exists())
-                        {
+                    try {
+                        if (csvDirectory.exists()) {
                             FileUtils.cleanDirectory(csvDirectory);
-                        }
-                        else
-                        {
+                        } else {
                             FileUtils.forceMkdir(csvDirectory);
 
                         }
-                    }
-                    catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     new CSVHandler(new ArrayList<>(), mergedNodeValues, filesPath, outputFolder, true, CSVRadioButton.isSelected());
                     return null;
                 }
 
-                protected void done()
-                {
+                protected void done() {
                     mainGUI.getStatus().setText("Done");
                     mainGUI.getProgressBar().setIndeterminate(false);
                 }
             }.execute();
-        }
-        else
-        {
+        } else {
             //todo multi thread this
             mainGUI.getStatus().setText("Extracting data..");
             mainGUI.getProgressBar().setIndeterminate(true);
-            new SwingWorker<>()
-            {
+            new SwingWorker<>() {
                 @Override
-                protected Object doInBackground()
-                {
-                    for (FileNameAndFile fileNameAndFile : xmlFileNameAndFile)
-                    {
+                protected Object doInBackground() {
+                    for (FileNameAndFile fileNameAndFile : xmlFileNameAndFile) {
                         File file = fileNameAndFile.getFile();
-                        if (includeParentParametersForCheckBox.isSelected())
-                        {
+                        if (includeParentParametersForCheckBox.isSelected()) {
                             Extractor extractor = new Extractor(file, parameterListInput, Integer.parseInt(depth.getText()));
                             Logic logic = new Logic();
                             new CSVHandler(extractor.getObjectCSV(), extractor.getArrayCSV(), logic.getCsvDirectoryFromFileName(file), outputFolder, false, CSVRadioButton.isSelected());
-                        }
-                        else
-                        {
+                        } else {
                             Extractor extractor = new Extractor(file, parameterListInput);
                             Logic logic = new Logic();
                             new CSVHandler(extractor.getObjectCSV(), extractor.getArrayCSV(), logic.getCsvDirectoryFromFileName(file), outputFolder, false, CSVRadioButton.isSelected());
@@ -347,8 +282,7 @@ public class Extraction
                     return null;
                 }
 
-                protected void done()
-                {
+                protected void done() {
                     mainGUI.getStatus().setText("Done");
                     mainGUI.getProgressBar().setIndeterminate(false);
                 }
@@ -370,8 +304,7 @@ public class Extraction
      *
      * @noinspection ALL
      */
-    private void $$$setupUI$$$()
-    {
+    private void $$$setupUI$$$() {
         extractDataPanel = new JPanel();
         extractDataPanel.setLayout(new GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
         final Spacer spacer1 = new Spacer();
@@ -451,6 +384,8 @@ public class Extraction
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {return extractDataPanel;}
+    public JComponent $$$getRootComponent$$$() {
+        return extractDataPanel;
+    }
 
 }

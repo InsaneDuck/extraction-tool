@@ -10,19 +10,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 
-public class Result extends JFrame
-{
+public class Result extends JFrame {
     JCheckBoxTree tree = new JCheckBoxTree();
     private JPanel main;
     private JScrollPane scrollPane;
 
-    public Result()
-    {
+    public Result() {
 
     }
 
-    public Result(DefaultMutableTreeNode defaultMutableTreeNode)
-    {
+    public Result(DefaultMutableTreeNode defaultMutableTreeNode) {
         FlatOneDarkIJTheme.setup();
         setTitle("Result");
         setLayout(new GridLayout());
@@ -36,8 +33,7 @@ public class Result extends JFrame
         DefaultTreeModel defaultTreeModel = new DefaultTreeModel(defaultMutableTreeNode);
         tree.setModel(defaultTreeModel);
         //jTree.setMinimumSize(new Dimension(700, 700));
-        for (int i = 0; i < tree.getRowCount(); i++)
-        {
+        for (int i = 0; i < tree.getRowCount(); i++) {
             tree.expandRow(i);
         }
         scrollPane.setViewportView(tree);
@@ -58,8 +54,7 @@ public class Result extends JFrame
      *
      * @noinspection ALL
      */
-    private void $$$setupUI$$$()
-    {
+    private void $$$setupUI$$$() {
         main = new JPanel();
         main.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         scrollPane = new JScrollPane();
@@ -69,6 +64,8 @@ public class Result extends JFrame
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$() {return main;}
+    public JComponent $$$getRootComponent$$$() {
+        return main;
+    }
 
 }
