@@ -44,7 +44,7 @@ public class Main
 
     }
 
-    static void printCommands()
+    private static void printCommands()
     {
         String instructions = """
                 XML Tool Usage
