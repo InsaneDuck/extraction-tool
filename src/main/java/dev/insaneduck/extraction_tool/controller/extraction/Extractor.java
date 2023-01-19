@@ -20,9 +20,13 @@ import java.util.List;
 //deals with data extraction and exporting
 public class Extractor
 {
+    //list to save template data
     private final List<Parameter> parameters;
+    //list to save unique object node data
     private final List<NodeValue> objectCSV = new ArrayList<>();
+    //list to save all array node data
     private final List<NodeValue> arrayCSV = new ArrayList<>();
+    //initialising root tree node for preserving parent node data for child node
     private final DefaultMutableTreeNode nodeTree = new DefaultMutableTreeNode("Root");
     private TreeNode whichNode = new DefaultMutableTreeNode();
     private int depth;
@@ -58,14 +62,16 @@ public class Extractor
 
     void init(File xmlFile)
     {
+        //reading json string from file
         String json = Logic.xmlToJson(Logic.readTextFromFile(xmlFile));
+        //getting data from json node using template if it is provided or extract everything if no template is provided
         getDataFromJson(json);
         //execute this method only when depth is applied
         if (depth > 0)
         {
             usedDepth();
         }
-        //adding source file data to nodes
+        //adding source column to every node
         arrayCSV.forEach(nodeValue -> {
             nodeValue.getNodeKeysAndValues().put("source", xmlFile.getName());
         });

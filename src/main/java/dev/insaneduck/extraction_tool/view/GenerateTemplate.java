@@ -64,7 +64,7 @@ public class GenerateTemplate
                 }
                 treePane.setViewportView(tree);
                 //todo make this global
-                parameterOutputList = treeBuilder.getParameterAltList();
+                parameterOutputList = treeBuilder.getParameterList();
             }
 
         }
@@ -154,9 +154,6 @@ public class GenerateTemplate
     /**
      * @noinspection ALL
      */
-    public JComponent $$$getRootComponent$$$()
-    {
-        return generateTemplatePanel;
-    }
+    public JComponent $$$getRootComponent$$$() {return generateTemplatePanel;}
 
 }

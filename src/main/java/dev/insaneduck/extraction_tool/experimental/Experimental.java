@@ -15,7 +15,7 @@ public class Experimental
         FlatOneDarkIJTheme.setup();
         TreeBuilder treeBuilder = new TreeBuilder(new File("/home/satya/Downloads/newxml/Belfast1.xml"));
         Result result = new Result(treeBuilder.getTree());
-        List<Parameter> parameterList = treeBuilder.getParameterAltList();
+        List<Parameter> parameterList = treeBuilder.getParameterList();
         System.out.println(Logic.beautify(Parameter.getJson(parameterList)));
     }
 }

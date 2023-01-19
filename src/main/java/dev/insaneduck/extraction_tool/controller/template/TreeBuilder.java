@@ -42,7 +42,7 @@ public class TreeBuilder
         return tree;
     }
 
-    public List<Parameter> getParameterAltList()
+    public List<Parameter> getParameterList()
     {
         return parameterList;
     }
