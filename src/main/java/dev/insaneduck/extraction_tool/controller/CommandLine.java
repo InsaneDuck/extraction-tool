@@ -84,7 +84,7 @@ public class CommandLine
                 "\nmerge=" + merge + '\n';
     }
 
-    boolean checkCommandParameters()
+    private boolean checkCommandParameters()
     {
         if (this.templatePath.equals(""))
         {
@@ -104,7 +104,7 @@ public class CommandLine
         return true;
     }
 
-    void processTemplate()
+    private void processTemplate()
     {
         Logic.setupTempFolder();
         parameterListInput.clear();
@@ -112,7 +112,7 @@ public class CommandLine
         Logic.getParameterListFromTemplate(template, parameterListInput);
     }
 
-    void processXML()
+    private void processXML()
     {
         try
         {

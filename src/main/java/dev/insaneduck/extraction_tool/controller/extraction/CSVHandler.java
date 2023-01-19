@@ -83,7 +83,7 @@ public class CSVHandler
         }
     }
 
-    public void nodeValuesToCsvFile(List<NodeValue> nodeValues, String filesPath)
+    private void nodeValuesToCsvFile(List<NodeValue> nodeValues, String filesPath)
     {
         for (NodeValue nodeValue : nodeValues)
         {
@@ -106,7 +106,7 @@ public class CSVHandler
         }
     }
 
-    public String hashMapToCsv(LinkedHashMap<String, String> hashMap, boolean isNewFile)
+    private String hashMapToCsv(LinkedHashMap<String, String> hashMap, boolean isNewFile)
     {
         String csv = "";
         String columnNames = "";
@@ -127,24 +127,24 @@ public class CSVHandler
         return csv.substring(1);
     }
 
-    public void objectToCsv(List<NodeValue> nodeValues, String filesPath)
+    private void objectToCsv(List<NodeValue> nodeValues, String filesPath)
     {
-        String csv = "";
+        StringBuilder csv = new StringBuilder();
         for (NodeValue nodeValue : nodeValues)
         {
-            String content = "";
-            csv = csv + nodeValue.getNodeName().toString() + "\n";
+            StringBuilder content = new StringBuilder();
+            csv.append(nodeValue.getNodeName().toString()).append("\n");
             for (String s : nodeValue.getNodeKeysAndValues().keySet())
             {
-                content = content + s + "," + nodeValue.getNodeKeysAndValues().get(s) + "\n";
+                content.append(s).append(",").append(nodeValue.getNodeKeysAndValues().get(s)).append("\n");
             }
-            csv = csv + content + "\n";
+            csv.append(content).append("\n");
         }
-        Logic.writeTextToFile(new File(filesPath + "root.csv"), csv);
+        Logic.writeTextToFile(new File(filesPath + "root.csv"), csv.toString());
     }
 
     //takes csv directory as input and outputs xls in same folder
-    public void convertCsvToXls(File csvDirectory, File xlsOutput)
+    private void convertCsvToXls(File csvDirectory, File xlsOutput)
     {
         String thisLine;
         int rowCounter;
